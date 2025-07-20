@@ -1,4 +1,4 @@
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
+import { Home, Inbox, LogOut } from "lucide-react";
 
 import {
   Sidebar,
@@ -11,6 +11,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import useAuth from "@/hooks/useAuth";
+import { Link } from "react-router";
 
 // Menu items.
 const itemsAuth = [
@@ -35,7 +36,7 @@ const itemsGuest = [
 ];
 
 export function AppSidebar() {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const items = user ? itemsAuth : itemsGuest;
 
   return (
@@ -48,13 +49,23 @@ export function AppSidebar() {
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a href={item.url}>
+                    <Link to={item.url}>
                       <item.icon />
                       <span>{item.title}</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
+              {user && (
+                <SidebarMenuItem onClick={logout}>
+                  <SidebarMenuButton asChild>
+                    <Link to={"/"}>
+                      <LogOut />
+                      <span>Logout</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              )}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

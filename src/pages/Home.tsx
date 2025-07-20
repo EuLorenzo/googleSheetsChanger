@@ -2,22 +2,26 @@ import { MyCard } from "@/components/MyCard";
 import MySheet from "@/components/MySheet";
 import useAuth from "@/hooks/useAuth";
 import useSheets from "@/hooks/useSheets";
+import { useEffect } from "react";
 
 const Home = () => {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
   const { getSheets, sheets } = useSheets();
 
+  useEffect(() => {
+    if (!sheets) {
+      getSheets();
+    }
+  });
+
   return (
-    <div className="flex flex-col justify-center items-center h-full">
+    <div className="flex flex-col justify-center items-center h-full px-4">
       <div className="w-full">
         {!user && <MyCard />}{" "}
         {user && (
-          <div className="m-auto">
-            <button onClick={getSheets}>Get sheets</button>
-            {sheets.map((sheet, key) => (
-              <MySheet key={key} Sheet={sheet} />
-            ))}
-            <button onClick={logout}>Logout</button>
+          <div className="m-auto flex flex-col gap-4">
+            {sheets &&
+              sheets.map((sheet, key) => <MySheet key={key} Sheet={sheet} />)}
           </div>
         )}
       </div>

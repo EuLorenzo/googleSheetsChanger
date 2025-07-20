@@ -7,18 +7,18 @@ import AuthProvider from "./provider/AuthProvider";
 
 function App() {
   return (
-    <AuthProvider>
-      <SidebarProvider>
-        <AppSidebar />
-        <ThemeProvider defaultTheme="dark">
-          <BrowserRouter>
+    <BrowserRouter>
+      <AuthProvider>
+        <SidebarProvider>
+          <AppSidebar />
+          <ThemeProvider defaultTheme="dark">
             <div className="w-full">
               <Router />
             </div>
-          </BrowserRouter>
-        </ThemeProvider>
-      </SidebarProvider>
-    </AuthProvider>
+          </ThemeProvider>
+        </SidebarProvider>
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
 

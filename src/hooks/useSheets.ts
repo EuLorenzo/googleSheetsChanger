@@ -5,7 +5,7 @@ import type { Sheet } from "@/types/Sheet";
 
 const useSheets = () => {
   const { accessToken } = useAuth();
-  const [sheets, setSheets] = useState<Sheet[]>([]);
+  const [sheets, setSheets] = useState<Sheet[] | null>(null);
 
   const getSheets = async () => {
     console.log("Access token no fetch: ", accessToken);
